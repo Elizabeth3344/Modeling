@@ -54,4 +54,4 @@ for i in range(n):
     plt.plot(system[i][0], system[i][1])
 plt.scatter(0,0,c='red')
 plt.scatter(-1,0)
-plt.savefig('particals moving in potential.png')
+plt.savefig('./training/particles moving in potential.png')
