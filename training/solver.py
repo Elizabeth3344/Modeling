@@ -26,32 +26,36 @@ def solver(
         y.append(y[i] + vy[i]*dt)
 
 
-    return x,y
+    return x,y,vx,vy
 
-def fx(x,y):
-    return x/(x**2 + y**2)**(3/2)
+def main():
+    def fx(x,y):
+        return x/(x**2 + y**2)**(3/2)
 
-def fy(x,y):
-    return y/(x**2 + y**2)**(3/2)
-
-
-system = []
-n = 10
-
-for i in range(n):
-    phi = np.random.uniform(-np.pi/15, np.pi/15)
-    v_amp = 3
-    system.append(
-        solver(-1, 0, v_amp*np.cos(phi), v_amp*np.sin(phi), 0.001, 0, 1, fx, fy)
-    )
+    def fy(x,y):
+        return y/(x**2 + y**2)**(3/2)
 
 
-figure = plt.figure()
-plt.grid()
-plt.xlabel(r'$x$')
-plt.ylabel(r'$y$')
-for i in range(n):
-    plt.plot(system[i][0], system[i][1])
-plt.scatter(0,0,c='red')
-plt.scatter(-1,0)
-plt.savefig('./training/particles moving in potential.png')
+    system = []
+    n = 10
+
+    for i in range(n):
+        phi = np.random.uniform(-np.pi/15, np.pi/15)
+        v_amp = 3
+        system.append(
+            solver(-1, 0, v_amp*np.cos(phi), v_amp*np.sin(phi), 0.001, 0, 1, fx, fy)
+        )
+
+
+    figure = plt.figure()
+    plt.grid()
+    plt.xlabel(r'$x$')
+    plt.ylabel(r'$y$')
+    for i in range(n):
+        plt.plot(system[i][0], system[i][1])
+    plt.scatter(0,0,c='red')
+    plt.scatter(-1,0)
+    plt.savefig('./training/particles moving in potential.png')
+
+if __name__ == "__main__": #чтобы часть кода, обернутая в ф-ю main, выполнялась только когда мы исполняем solver.py напрямую, а не косвенно через другую программу
+    main()
